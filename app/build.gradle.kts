@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
 }
 
 android {
@@ -56,5 +56,5 @@ dependencies {
     implementation("io.insert-koin:koin-core-viewmodel")
 
     implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 }
