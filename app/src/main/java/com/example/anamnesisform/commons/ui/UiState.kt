@@ -1,4 +1,4 @@
-package com.example.anamnesisform.commons
+package com.example.anamnesisform.commons.ui
 
 sealed class UiState<out T> {
     data class Loading(val isLoading: Boolean) : UiState<Nothing>()

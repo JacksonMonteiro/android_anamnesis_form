@@ -1,87 +1,65 @@
-package com.example.anamnesisform.presentation
+package com.example.anamnesisform.features.form.presentation
 
-import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.example.anamnesisform.R
-import com.example.anamnesisform.commons.UiState
-import com.example.anamnesisform.databinding.ActivityMainBinding
+import com.example.anamnesisform.commons.ui.UiState
+import com.example.anamnesisform.databinding.FragmentFormBinding
 import com.example.anamnesisform.domain.model.AnamnesisForm
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    val viewModel: MainActivityViewModel by inject()
+class FormFragment : Fragment() {
+    private lateinit var binding: FragmentFormBinding
+    private val viewModel: FormFragmentViewModel by inject()
 
     private var loadingDialog: AlertDialog? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentFormBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        setupView()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
     }
 
     //region SETUPS
-    private fun setupView() {
-        disableDarkMode()
-    }
-
     private fun setupListeners() {
         binding.saveButton.setOnClickListener {
             viewModel.validate(makeForm())
         }
 
-        binding.rgAlergiaCosmeticos.setOnCheckedChangeListener { radioGroup, id ->
-            when (id) {
-                R.id.radio_alergia_cosmeticos_sim -> {
-                    binding.etAlergiaCosmeticos.isVisible = true
-                }
-
-                else -> {
-                    binding.etAlergiaCosmeticos.isVisible = false
-                }
-            }
+        binding.rgAlergiaCosmeticos.setOnCheckedChangeListener { _, id ->
+            binding.etAlergiaCosmeticos.isVisible = id == R.id.radio_alergia_cosmeticos_sim
         }
 
-        binding.rgAlergiaHigiene.setOnCheckedChangeListener { radioGroup, id ->
-            when (id) {
-                R.id.radio_alergia_higiene_sim -> {
-                    binding.etAlergiaHigiene.isVisible = true
-                }
-
-                else -> {
-                    binding.etAlergiaHigiene.isVisible = false
-                }
-            }
+        binding.rgAlergiaHigiene.setOnCheckedChangeListener { _, id ->
+            binding.etAlergiaHigiene.isVisible = id == R.id.radio_alergia_higiene_sim
         }
 
-        binding.rgTratamentoOcular.setOnCheckedChangeListener { radioGroup, id ->
-            when (id) {
-                R.id.radio_tratamento_ocular_sim -> {
-                    binding.etTratamentoOcular.isVisible = true
-                }
-
-                else -> {
-                    binding.etTratamentoOcular.isVisible = false
-                }
-            }
+        binding.rgTratamentoOcular.setOnCheckedChangeListener { _, id ->
+            binding.etTratamentoOcular.isVisible = id == R.id.radio_tratamento_ocular_sim
         }
     }
 
     private fun setupObservers() {
-        viewModel.formError.observe(this) { error ->
+        viewModel.formError.observe(viewLifecycleOwner) { error ->
             showSnackbar(error)
         }
 
-        viewModel.response.observe(this) { state ->
+        viewModel.response.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Success -> handleSuccess()
                 is UiState.Error -> showSnackbar(state.message)
@@ -93,13 +71,12 @@ class MainActivity : AppCompatActivity() {
 
     //region Handlers
     private fun handleSuccess() {
-        AlertDialog.Builder(this).setTitle("SUCESSO!")
+        AlertDialog.Builder(requireContext()).setTitle("SUCESSO!")
             .setMessage("Os dados da sua cliente foram salvos com sucesso")
-            .setPositiveButton("Voltar", object : DialogInterface.OnClickListener {
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-
-                }
-            }).create().show()
+            .setPositiveButton("Voltar") { _, _ ->
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+            .create().show()
     }
 
     private fun handleLoading(isLoading: Boolean) {
@@ -110,8 +87,8 @@ class MainActivity : AppCompatActivity() {
     //region Métodos Gerais
     private fun showLoadingDialog() {
         if (loadingDialog == null) {
-            loadingDialog = AlertDialog.Builder(this).setView(
-                layoutInflater.inflate(R.layout.dialog_loading, null)
+            loadingDialog = AlertDialog.Builder(requireContext()).setView(
+                LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loading, null)
             ).create()
 
             loadingDialog?.setCancelable(false)
@@ -125,11 +102,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSnackbar(message: String) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun disableDarkMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun makeForm(): AnamnesisForm {

@@ -1,15 +1,15 @@
-package com.example.anamnesisform.presentation
+package com.example.anamnesisform.features.form.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.anamnesisform.commons.UiState
+import com.example.anamnesisform.commons.ui.UiState
 import com.example.anamnesisform.data.local.repository.AnamnesisFormRepository
 import com.example.anamnesisform.domain.model.AnamnesisForm
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel(private val repository: AnamnesisFormRepository) : ViewModel() {
+class FormFragmentViewModel(private val repository: AnamnesisFormRepository) : ViewModel() {
     private val _formError = MutableLiveData<String>()
     val formError: LiveData<String> get() = _formError
 
