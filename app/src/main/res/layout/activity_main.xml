@@ -219,6 +219,7 @@
                     android:text="Usa lentes de contato?" />
 
                 <RadioGroup
+                    android:id="@+id/rg_lentes_contato"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -249,6 +250,7 @@
                     android:text="Gestante?" />
 
                 <RadioGroup
+                    android:id="@+id/rg_gestante"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -281,7 +283,7 @@
                     android:text="Alergia a cosméticos ou maquiagens?" />
 
                 <RadioGroup
-                    android:id="@+id/radio_group_alergia_cosmeticos"
+                    android:id="@+id/rg_alergia_cosmeticos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -302,7 +304,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/edit_alergia_cosmeticos"
+                android:id="@+id/et_alergia_cosmeticos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Descreva sua alergia"
@@ -320,7 +322,7 @@
                     android:text="Alergia a produtos de higiene pessoal?" />
 
                 <RadioGroup
-                    android:id="@+id/radio_group_alergia_higiene"
+                    android:id="@+id/rg_alergia_higiene"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -341,7 +343,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/edit_alergia_higiene"
+                android:id="@+id/et_alergia_higiene"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Descreva sua alergia"
@@ -358,6 +360,7 @@
                     android:text="Fuma?" />
 
                 <RadioGroup
+                    android:id="@+id/rg_fumo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -388,6 +391,7 @@
                     android:text="Lacrimeja constantemente?" />
 
                 <RadioGroup
+                    android:id="@+id/rg_lacrimejo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -418,6 +422,7 @@
                     android:text="Sensibilidade a luz?" />
 
                 <RadioGroup
+                    android:id="@+id/rg_sensibilidade_luz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -448,7 +453,7 @@
                     android:text="Faz tratamento ocular?" />
 
                 <RadioGroup
-                    android:id="@+id/radio_group_tratamento_ocular"
+                    android:id="@+id/rg_tratamento_ocular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -469,7 +474,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/edit_tratamento_ocular"
+                android:id="@+id/et_tratamento_ocular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Descreva o tratamento"
@@ -487,6 +492,7 @@
                     android:text="Fez alguma cirurgia ocular nos últimos 6 meses?" />
 
                 <RadioGroup
+                    android:id="@+id/rg_cirurgia_recente"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -522,6 +528,12 @@
                 android:text="Autorizar a realização do procedimento de extensão de cílios. Autorizo o registro fotográfico do antes e depois para divulgação profissoinal e documentação. As declarações que constam nesta ficha de anamnese são verdadeiras, não cabendo ao profissional a responsabilidade por informações omitidas nesta avaliação. Comprometom-me a seguir todas as recomendações pós-procedimentos"
                 android:textAlignment="center"
                 android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salvar"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

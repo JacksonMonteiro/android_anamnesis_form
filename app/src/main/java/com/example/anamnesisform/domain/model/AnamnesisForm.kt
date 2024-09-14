@@ -30,7 +30,9 @@ data class AnamnesisForm(
     @ColumnInfo(name = "sensibilidade_luz") val sensibilidadeLuz: Boolean?,
     @ColumnInfo(name = "fazTratamentoOcular") val fazTratamentoOcular: Boolean?,
     @ColumnInfo(name = "fezCirurgiaOcularUltimos6Meses") val fezCirurgiaOcularUltimos6Meses: Boolean?,
-    @ColumnInfo(name = "alergiaCosmeticosMaquiagens") val alergiaCosmeticosMaquiagens: String?,
-    @ColumnInfo(name = "alergiaProdutosHigienePessoal") val alergiaProdutosHigienePessoal: String?,
-    @ColumnInfo(name = "descricaoTratamentoOcular") val descricaoTratamentoOcular: String?
+    @ColumnInfo(name = "alergiaCosmeticosMaquiagens") val alergiaCosmeticosMaquiagens: Boolean?,
+    @ColumnInfo(name = "alergiaProdutosHigienePessoal") val alergiaProdutosHigienePessoal: Boolean?,
+    @ColumnInfo(name = "alergiaCosmetico") val alergiaCosmetico: String?,
+    @ColumnInfo(name = "alergiaProdutosHigiene") val alergiaProdutosHigiene: String?,
+    @ColumnInfo(name = "tratamentoOcular") val tratamentoOcular: String?
 )
