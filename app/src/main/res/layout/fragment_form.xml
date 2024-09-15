@@ -520,22 +520,28 @@
                 </RadioGroup>
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/ll_termo_responsabiliade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="12dp"
-                android:text="Termo de responsabilidade:"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="12dp"
+                    android:text="Termo de responsabilidade:"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="12dp"
-                android:text="Autorizar a realização do procedimento de extensão de cílios. Autorizo o registro fotográfico do antes e depois para divulgação profissoinal e documentação. As declarações que constam nesta ficha de anamnese são verdadeiras, não cabendo ao profissional a responsabilidade por informações omitidas nesta avaliação. Comprometom-me a seguir todas as recomendações pós-procedimentos"
-                android:textAlignment="center"
-                android:textSize="14sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="12dp"
+                    android:text="A cliente autoriza a realização do procedimento de extensão de cílios, bem como o registro fotográfico do antes e depois para fins de divulgação profissional e documentação. Declara que todas as informações fornecidas nesta ficha de anamnese são verdadeiras, isentando o profissional de qualquer responsabilidade por informações omitidas. Compromete-se a seguir todas as recomendações pós-procedimento.\n\nÉ importante destacar que, ao concordar com o salvamento das informações do formulário no dispositivo, a cliente está automaticamente concordando com o termo de responsabilidade."
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/save_button"
