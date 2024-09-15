@@ -225,6 +225,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:buttonTint="@color/colorPrimary"
                         android:id="@+id/radio_usa_lentes_sim"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -243,6 +244,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -276,10 +278,10 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
                     android:text="Alergia a cosméticos ou maquiagens?" />
 
                 <RadioGroup
@@ -314,11 +316,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
                     android:text="Alergia a produtos de higiene pessoal?" />
 
                 <RadioGroup
@@ -353,6 +356,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -384,6 +388,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -415,6 +420,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -446,6 +452,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -484,11 +491,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
                     android:text="Fez alguma cirurgia ocular nos últimos 6 meses?" />
 
                 <RadioGroup
@@ -533,7 +541,27 @@
                 android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Salvar"/>
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Salvar formulário" />
+
+            <Button
+                android:id="@+id/update_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Atualizar formulário"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                app:strokeWidth="2dp"
+                android:backgroundTint="@color/white"
+                app:strokeColor="@color/red"
+                android:id="@+id/delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deletar formulário"
+                android:textColor="@color/red"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

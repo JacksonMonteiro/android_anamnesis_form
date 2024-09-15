@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.anamnesisform.R
 import com.example.anamnesisform.commons.interfaces.IOnClickListener
@@ -36,6 +37,11 @@ class FormListFragment : Fragment() {
         setupObservers()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getForms()
+    }
+
     private fun setupObservers() {
         viewModel.response.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -49,7 +55,9 @@ class FormListFragment : Fragment() {
     private fun handleSuccess(forms: List<AnamnesisForm>) {
         adapter = FormListAdapter(forms, object : IOnClickListener {
             override fun onClick(position: Int) {
-
+                val bundle = Bundle()
+                bundle.putSerializable("form", adapter?.getItem(position))
+                findNavController().navigate(R.id.action_list_to_visualization, bundle)
             }
         })
 

@@ -23,10 +23,14 @@ class FormListAdapter(
         holder.binding.formId.text = item.id.toString()
         holder.binding.formClientName.text = item.nome
         holder.binding.formClientPhone.text = item.celular
-        holder.binding.formClientPhone.setOnClickListener { action.onClick(position) }
+        holder.binding.formCard.setOnClickListener { action.onClick(position) }
     }
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun getItem(position: Int) : AnamnesisForm {
+        return items[position]
     }
 }

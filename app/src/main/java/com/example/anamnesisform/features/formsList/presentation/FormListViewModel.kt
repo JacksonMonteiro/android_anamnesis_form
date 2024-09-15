@@ -13,11 +13,7 @@ class FormListViewModel(private val repository: AnamnesisFormRepository) : ViewM
     private val _response = MutableLiveData<UiState<List<AnamnesisForm>>>()
     val response: LiveData<UiState<List<AnamnesisForm>>> get() = _response
 
-    init {
-        getForms()
-    }
-
-    private fun getForms() = viewModelScope.launch {
+    fun getForms() = viewModelScope.launch {
         _response.value = UiState.Loading(true)
 
         try {

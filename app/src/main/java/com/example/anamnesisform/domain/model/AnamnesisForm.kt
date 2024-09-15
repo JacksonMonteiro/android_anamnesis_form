@@ -3,6 +3,7 @@ package com.example.anamnesisform.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class AnamnesisForm(
@@ -35,4 +36,4 @@ data class AnamnesisForm(
     @ColumnInfo(name = "alergiaCosmetico") val alergiaCosmetico: String?,
     @ColumnInfo(name = "alergiaProdutosHigiene") val alergiaProdutosHigiene: String?,
     @ColumnInfo(name = "tratamentoOcular") val tratamentoOcular: String?
-)
+) : Serializable

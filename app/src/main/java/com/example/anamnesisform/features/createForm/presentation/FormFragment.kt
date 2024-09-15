@@ -19,6 +19,7 @@ class FormFragment : Fragment() {
     private val viewModel: FormFragmentViewModel by inject()
 
     private var loadingDialog: AlertDialog? = null
+    private var id: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,13 +33,20 @@ class FormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+        setupBundle()
     }
 
     //region SETUPS
     private fun setupListeners() {
         binding.saveButton.setOnClickListener {
-            viewModel.validate(makeForm())
+            viewModel.validate(makeForm(), false)
         }
+
+        binding.updateButton.setOnClickListener {
+            viewModel.validate(makeForm(), true)
+        }
+
+        binding.deleteButton.setOnClickListener { viewModel.delete(makeForm()) }
 
         binding.rgAlergiaCosmeticos.setOnCheckedChangeListener { _, id ->
             binding.etAlergiaCosmeticos.isVisible = id == R.id.radio_alergia_cosmeticos_sim
@@ -58,20 +66,48 @@ class FormFragment : Fragment() {
             showSnackbar(error)
         }
 
-        viewModel.response.observe(viewLifecycleOwner) { state ->
+        viewModel.saveResponse.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is UiState.Success -> handleSuccess()
+                is UiState.Success -> handleSuccess("Os dados do formulário foram salvos com sucesso")
+                is UiState.Error -> showSnackbar(state.message)
+                is UiState.Loading -> handleLoading(state.isLoading)
+            }
+        }
+
+        viewModel.updateResponse.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Success -> handleSuccess("Os dados do formulário foram atualizados com sucesso")
+                is UiState.Error -> showSnackbar(state.message)
+                is UiState.Loading -> handleLoading(state.isLoading)
+            }
+        }
+
+        viewModel.deleteResponse.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Success -> handleSuccess("O formulário foi deletado com sucesso")
                 is UiState.Error -> showSnackbar(state.message)
                 is UiState.Loading -> handleLoading(state.isLoading)
             }
         }
     }
+
+    private fun setupBundle() {
+        val form = arguments?.getSerializable("form") as? AnamnesisForm
+        if (form != null) {
+            setupId(form.id)
+            handleFields(form)
+        }
+    }
+
+    private fun setupId(identifier: Long) {
+        id = identifier
+    }
     //endregion
 
     //region Handlers
-    private fun handleSuccess() {
+    private fun handleSuccess(message: String) {
         AlertDialog.Builder(requireContext()).setTitle("SUCESSO!")
-            .setMessage("Os dados da sua cliente foram salvos com sucesso")
+            .setMessage(message)
             .setPositiveButton("Voltar") { _, _ ->
                 requireActivity().supportFragmentManager.popBackStack()
             }
@@ -81,9 +117,112 @@ class FormFragment : Fragment() {
     private fun handleLoading(isLoading: Boolean) {
         if (isLoading) showLoadingDialog() else hideLoadingDialog()
     }
+
+    private fun handleFields(form: AnamnesisForm) {
+        handleFormButtons(form)
+        handleFormInputs(form)
+        handleCheckboxes(form)
+        handleRadiosButtons(form)
+    }
+
+    private fun handleFormButtons(form: AnamnesisForm) {
+        binding.saveButton.isVisible = false
+        binding.updateButton.isVisible = true
+        binding.deleteButton.isVisible = true
+    }
+
+    private fun handleFormInputs(form: AnamnesisForm) {
+        binding.etNome.setText(form.nome)
+        binding.etDataNascimento.setText(form.dataNascimento)
+        binding.etProfissao.setText(form.profissao)
+        binding.etCelular.setText(form.celular)
+        binding.etEmail.setText(form.email)
+    }
+
+    private fun handleCheckboxes(form: AnamnesisForm) {
+
+        binding.checkboxBlefarite.isChecked = form.blefarite == true
+        binding.checkboxTercolCalazio.isChecked = form.tercolCalazio == true
+        binding.checkboxConjutivite.isChecked = form.conjutivite == true
+        binding.checkboxDiabetes.isChecked = form.diabetes == true
+        binding.checkboxGlaucoma.isChecked = form.glaucoma == true
+
+        binding.checkboxFioAFio.isChecked = form.fioAFio == true
+        binding.checkboxVolumeRusso.isChecked = form.volumeRusso == true
+        binding.checkboxHibrido.isChecked = form.hibrido == true
+        binding.checkboxMegaVolume.isChecked = form.megaVolume == true
+        binding.checkboxVolumeBrasileiro.isChecked = form.volumeBrasileiro == true
+        binding.checkboxExpress.isChecked = form.express == true
+    }
+
+    private fun handleRadiosButtons(form: AnamnesisForm) {
+        if (form.usaLentesContato == true) {
+            binding.radioUsaLentesSim.isChecked = true
+        } else {
+            binding.radioUsaLentesSim.isChecked = true
+        }
+
+        if (form.gestante == true) {
+            binding.radioGestanteSim.isChecked = true
+        } else {
+            binding.radioGestanteNao.isChecked = true
+        }
+
+        if (form.alergiaCosmeticosMaquiagens == true) {
+            binding.radioAlergiaCosmeticosSim.isChecked = true
+
+            binding.etAlergiaCosmeticos.isVisible = true
+            binding.etAlergiaCosmeticos.setText(form.alergiaCosmetico)
+        } else {
+            binding.radioAlergiaCosmeticosNao.isChecked = true
+        }
+
+        if (form.alergiaProdutosHigienePessoal == true) {
+            binding.radioAlergiaHigieneSim.isChecked = true
+
+            binding.etAlergiaHigiene.isVisible = true
+            binding.etAlergiaHigiene.setText(form.alergiaProdutosHigiene)
+        } else {
+            binding.radioAlergiaHigieneNao.isChecked = true
+        }
+
+        if (form.fumante == true) {
+            binding.radioFumaSim.isChecked = true
+        } else {
+            binding.radioFumaNao.isChecked = true
+        }
+
+        if (form.lacrimejaConstante == true) {
+            binding.radioLacrimejaSim.isChecked = true
+        } else {
+            binding.radioLacrimejaNao.isChecked = true
+        }
+
+        if (form.sensibilidadeLuz == true) {
+            binding.radioSensibilidadeLuzSim.isChecked = true
+        } else {
+            binding.radioSensibilidadeLuzNao.isChecked = true
+        }
+
+        if (form.fazTratamentoOcular == true) {
+            binding.radioTratamentoOcularSim.isChecked = true
+
+            binding.etTratamentoOcular.isVisible = true
+            binding.etTratamentoOcular.setText(form.alergiaProdutosHigiene)
+        } else {
+            binding.radioTratamentoOcularNao.isChecked = true
+        }
+
+        if (form.fezCirurgiaOcularUltimos6Meses == true) {
+            binding.radioCirurgiaOcularSim.isChecked = true
+        } else {
+            binding.radioCirurgiaOcularNao.isChecked = true
+        }
+    }
     //endregion
 
     //region Métodos Gerais
+
     private fun showLoadingDialog() {
         if (loadingDialog == null) {
             loadingDialog = AlertDialog.Builder(requireContext()).setView(
@@ -101,11 +240,12 @@ class FormFragment : Fragment() {
     }
 
     private fun showSnackbar(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun makeForm(): AnamnesisForm {
         return AnamnesisForm(
+            id = id,
             nome = binding.etNome.text.toString(),
             dataNascimento = binding.etDataNascimento.text.toString(),
             profissao = binding.etProfissao.text.toString(),

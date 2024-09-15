@@ -26,5 +26,10 @@
     <fragment
         android:id="@+id/form_list_fragment"
         android:name="com.example.anamnesisform.features.formsList.presentation.FormListFragment"
-        android:label="Form List Fragment" />
+        android:label="Form List Fragment">
+
+        <action
+            android:id="@+id/action_list_to_visualization"
+            app:destination="@+id/form_fragment" />
+    </fragment>
 </navigation>
