@@ -12,10 +12,19 @@
         <action
             android:id="@+id/action_menu_to_form"
             app:destination="@+id/form_fragment" />
+
+        <action
+            android:id="@+id/action_menu_to_list"
+            app:destination="@+id/form_list_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/form_fragment"
-        android:name="com.example.anamnesisform.features.form.presentation.FormFragment"
+        android:name="com.example.anamnesisform.features.createForm.presentation.FormFragment"
         android:label="Form Fragment" />
+
+    <fragment
+        android:id="@+id/form_list_fragment"
+        android:name="com.example.anamnesisform.features.formsList.presentation.FormListFragment"
+        android:label="Form List Fragment" />
 </navigation>

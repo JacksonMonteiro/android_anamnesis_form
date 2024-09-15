@@ -50,7 +50,7 @@ class MenuFragment : Fragment() {
             title = "Ver Formulários",
             action = object : IOnClickListener {
                 override fun onClick(position: Int) {
-
+                    findNavController().navigate(R.id.action_menu_to_list)
                 }
             })
     )
