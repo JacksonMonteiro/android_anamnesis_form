@@ -119,16 +119,17 @@ class FormFragment : Fragment() {
     }
 
     private fun handleFields(form: AnamnesisForm) {
-        handleFormButtons(form)
+        handleFormFields()
         handleFormInputs(form)
         handleCheckboxes(form)
         handleRadiosButtons(form)
     }
 
-    private fun handleFormButtons(form: AnamnesisForm) {
+    private fun handleFormFields() {
         binding.saveButton.isVisible = false
         binding.updateButton.isVisible = true
         binding.deleteButton.isVisible = true
+        binding.llTermoResponsabiliade.isVisible = false
     }
 
     private fun handleFormInputs(form: AnamnesisForm) {
